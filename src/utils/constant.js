@@ -1,0 +1,4 @@
+export const GET_LIST_POST = 'GET_LIST_POST';
+export const GET_LIST_POST_SUCCESS = 'GET_LIST_POST_SUCCESS';
+export const GET_LIST_EX = 'GET_LIST_EX';
+export const GET_LIST_EX_SUCCESS = 'GET_LIST_EX_SUCCESS';
