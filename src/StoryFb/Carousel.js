@@ -7,7 +7,7 @@ function CarouselRender()
    
     return (
         <>
-        <Carousel navButtonsAlwaysVisible ></Carousel>
+        <Carousel navButtonsAlwaysVisible >
             {
                 data.map(item=><Item key={item.id} item={item} />)
             }

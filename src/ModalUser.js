@@ -9,8 +9,8 @@ class ModalUser extends Component {
     this.state = {
       email: "",
       name:'',
-      gender:0,
-      status:0,
+      gender:"male",
+      status:"active",
     };
   }
 
@@ -48,13 +48,13 @@ class ModalUser extends Component {
     if (isValid === true) {
       //call api create model
       this.props.createNewUser(this.state);
+      console.log(this.state);
     //   console.log(this.state);
       this.setState({
         email: "",
         password: "",
         firstName: "",
         lastName: "",
-        address: "",
       });
     }
   };

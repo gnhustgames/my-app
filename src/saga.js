@@ -1,6 +1,6 @@
 import { call, put, all,  fork, takeEvery } from 'redux-saga/effects';
 import { getPostData } from './services/postsAPI';
-import { getPostDataEx } from './services/postExAPI';
+import { getUser } from './services/postExAPI';
 import { getListPostSuccess } from './action/action';
 import { getListEXSuccess } from './action/action';
 import * as actionType from './utils/constant'
@@ -17,7 +17,7 @@ yield put(getListPostSuccess(data));
 }
 function* getListEx(action) {
     try {
-    const data = yield call(getPostDataEx);
+    const data = yield call(getUser);
     yield put(getListEXSuccess(data));
     } catch (error) {
     //handle error
