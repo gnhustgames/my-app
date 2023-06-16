@@ -35,8 +35,10 @@ class ModalEditUser extends Component {
     this.setState({
       ...copyState,
     });
-    console.log(this.state.gender);
+    // console.log(this.state.gender);
   };
+  //validate email input 
+
   checkValidateInput = () => {
     let isValid = true;
     let arrInput = ["email", "name", "gender", "status"];
@@ -46,6 +48,7 @@ class ModalEditUser extends Component {
         alert(`Missing parameter :` + arrInput[i]);
         break;
       }
+    
     }
     return isValid;
   };
