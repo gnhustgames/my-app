@@ -9,8 +9,8 @@ export default function StoryComponent() {
   return (
     <>
       {/* <CardComponent /> */}
-      <LinearProgressComponent />
-   {/* <LinearProgressComponent2 /> */}
+      {/* <LinearProgressComponent /> */}
+   <LinearProgressComponent2 />
     </>
   );
 }

@@ -1,85 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { LinearProgress } from '@mui/material';
 
-import { Table,TableBody,TableCell,TableHead,TableRow } from '@mui/material';
-import {LinearProgress} from '@mui/material';
-
-const data = [
-  {
-    id: 283,
-    completed: "100",
-  },
-  {
-    id: 284,
-    completed: "70",
-  },
-  {
-    id: 285,
-    completed: "20",
-  },
-  {
-    id: 295,
-    completed: "50",
-  },
+const stories = [
+  { id: 1, duration: 5000 }, // Story 1 with a duration of 5 seconds
+  { id: 2, duration: 3000 }, // Story 2 with a duration of 3 seconds
+  { id: 3, duration: 4000 }, // Story 3 with a duration of 4 seconds
 ];
 
-class LinearProgressComponent2 extends React.Component {
-  state = {
-    playersData: [],
-  };
+function LinearProgressComponent() {
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const currentStory = stories[currentStoryIndex];
+  const [storyProgress, setStoryProgress] = useState(0);
+  const progressInterval = 10; // Progress interval in milliseconds (10 milliseconds)
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      playersData: data.map(item => ({ ...item, completed: 0}))
-    };
-  };
-
-  componentDidMount() {
-    this.timer = setTimeout(() => this.progress(5), 100);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
-
-  progress(completion) {
-    let done = 0;
-    this.setState({
-      playersData: data.map((item, i) => {
-        const { completed: current } = this.state.playersData[i];
-        const { completed: max } = item;
-        if (current + completion >= max) {
-          done += 1;
+  useEffect(() => {
+    const storyInterval = setInterval(() => {
+      if (storyProgress >= 100) {
+        clearInterval(storyInterval);
+        if (currentStoryIndex < stories.length - 1) {
+          setCurrentStoryIndex((prevIndex) => prevIndex + 1);
         }
-        return {
-          ...item,
-          completed: Math.min(current + completion, max),
-        };
-      }),
-    });
-    if (done < data.length) {
-      this.timer = setTimeout(() => this.progress(5), 100);
-    }
-  }
+      } else {
+        setStoryProgress((prevProgress) => prevProgress + (100 / currentStory.duration) * progressInterval);
+      }
+    }, progressInterval);
 
-  render() {
-    const { playersData } = this.state;
-    return (
-      <div>
-        <Table>
-          <TableBody>
-            {playersData.map(({ id, completed }) =>
-              <TableRow key={id}>
-                <TableCell>
-                  <LinearProgress mode="determinate" value={completed} />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  }
+    return () => {
+      clearInterval(storyInterval);
+    };
+  }, [currentStoryIndex]);
+
+  return (
+    <div>
+      <h1>Story {currentStory.id}</h1>
+      <LinearProgress variant="determinate" value={storyProgress} />
+    </div>
+  );
 }
 
-export default LinearProgressComponent2;
+export default LinearProgressComponent;
