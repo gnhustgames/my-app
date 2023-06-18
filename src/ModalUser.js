@@ -10,7 +10,7 @@ class ModalUser extends Component {
       email: "",
       name:'',
       gender:"male",
-      status:"active",
+      status:"inactive",
     };
   }
 
@@ -26,7 +26,13 @@ class ModalUser extends Component {
       // () => console.log(this.state)
     );
   };
+// validateEmail = (email) => {
+//     return email.match(
+//       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+//     );
+//   };
   checkValidateInput = () => {
+   
     let isValid = true;
     let arrInput = [
       "email",
@@ -40,15 +46,19 @@ class ModalUser extends Component {
         alert(`Missing parameter :` + arrInput[i]);
         break;
       }
+     
     }
+    
     return isValid;
   };
+ 
   handleAddNewUser = () => {
     let isValid = this.checkValidateInput();
-    if (isValid === true) {
+    
+    if (isValid === true ) {
       //call api create model
       this.props.createNewUser(this.state);
-      console.log(this.state);
+  
     //   console.log(this.state);
       this.setState({
         email: "",
@@ -80,9 +90,10 @@ class ModalUser extends Component {
             <div className="input-container form-group">
               <label htmlFor="">Email</label>
               <input
-                type="text"
+                type="email"
                 onChange={(event) => this.handleOnchangeInput(event, "email")}
                 value={this.state.email}
+              
               />
             </div>
             <div className="input-container form-group">
@@ -128,8 +139,8 @@ class ModalUser extends Component {
             className="px-3"
             onClick={() => this.handleAddNewUser()}
           >
-            Add new{" "}
-          </Button>{" "}
+            Add new
+          </Button>
           <Button
             color="secondary"
             className="px-3 "

@@ -1,12 +1,16 @@
 import * as React from 'react';
-import CarouselRender from './Carousel';
+import CardComponent from './CardComponent';
+import LinearProgressComponent from './LinearProgress';
+import LinearProgressComponent2 from './LinearProgress2';
 
 
 
 export default function StoryComponent() {
   return (
     <>
-      <CarouselRender />
+      {/* <CardComponent /> */}
+      <LinearProgressComponent />
+   {/* <LinearProgressComponent2 /> */}
     </>
   );
 }

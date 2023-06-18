@@ -17,7 +17,7 @@ const postsReducer = (state = {listUserLong:[],listUserShort:[]}, action) => {
         };
     case GET_LIST_EX_SUCCESS:
         state.listUserShort=action.payload;
-       console.log(state)
+    //    console.log(state)
         return{
             ...state,     
         };

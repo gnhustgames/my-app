@@ -9,7 +9,7 @@ export const createUser = (data) => {
     // console.log(form);
     const config = {
         headers: { Authorization: `Bearer fcd04ff81d0d73524478f5ae5b3f6f0d300535efe0c5129e219f6b8e99823c16` },
-        data:data
+      
     };
-    return axios.post('https://gorest.co.in/public/v2/users',config)
+    return axios.post('https://gorest.co.in/public/v2/users',data,config)
   }

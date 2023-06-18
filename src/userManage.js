@@ -8,6 +8,7 @@ import { createUser } from './services/createUser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { deleteUser } from './services/deleteUser';
+import { updateUser } from './services/updateUser';
 
 class UserManage extends React.Component {
   constructor(props){
@@ -33,13 +34,23 @@ class UserManage extends React.Component {
     }
     //create user from modaluser
     createNewUser = async (data) => {
+      // console.log(data)
       try {
       let response = await createUser(data)
-      if(response && response.status===201){
+   
+      if( response &&(response.status===201 || response.status===200)){
+        this.props.getListEx();
+        this.setState({
+          isOpenModalUser:false,
+        })
         toast("Add User Success")
+
       }else{
+        this.setState({
+          isOpenModalUser:false,
+        })
         toast(
-          "Add User Failed"
+      "Add User Failed"
         )
       }
       } catch (error) {
@@ -50,7 +61,8 @@ class UserManage extends React.Component {
     handleDeleteUser = async (item)=>{
       try {
         let response= await deleteUser(item.id)
-        if(response && response.status===201){
+        if(response && (response.status===204 || response.status===200)){
+          this.props.getListEx();
           toast("Delete User Success")
         }else{
           toast(
@@ -76,13 +88,28 @@ class UserManage extends React.Component {
       // console.log(user.id)
     }
     //update infor
-    doEditUser = (userUpdate) => {
-     let id=userUpdate.id;
-     let copyArrUsers={...this.state.arrUsers};
-      copyArrUsers[id]=userUpdate;
-      this.setState({
-        arrUsers:copyArrUsers,
-      })
+    doEditUser = async (userUpdate) => {
+    
+     try {
+    
+      console.log(userUpdate)
+      let response= await updateUser(userUpdate)
+      if(response && (response.status===201 || response.status===200)){
+        this.props.getListEx();
+        this.setState({
+          isOpenModaEditUser:false,
+        })
+        toast("Update User Success")
+
+      }else{
+        toast(
+          "Update User Failed"
+        )
+      }
+      
+     } catch (error) {
+      console.log(error)
+     }
     };
     //toggle modal
     toggleUserModal = () => {
