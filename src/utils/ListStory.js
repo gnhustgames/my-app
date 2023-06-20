@@ -76,7 +76,7 @@ const ListStory=[{
   time:"1 ngày",
   type:"video",
   videourl:`https://dl6.webmfiles.org/big-buck-bunny_trailer.webm`,
-  desc:"video",
+  desc:"video1",
   view:"232"
 
 },
@@ -88,5 +88,15 @@ const ListStory=[{
     image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
     desc:'9',
     view:'243'
-},];
+},{
+    id:10,
+    name:"gnhust2",
+    time:"3 ngày",
+    type:"video",
+    videourl:`https://dl6.webmfiles.org/elephants-dream.webm`,
+    desc:"video2",
+    view:"2002"
+  
+  },
+];
 export default ListStory;

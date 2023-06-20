@@ -13,7 +13,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import { getVideoDurationInSeconds } from 'get-video-duration';
+// import { getVideoDurationInSeconds } from 'get-video-duration';
 import ListStory from '../utils/ListStory';
   
   const useStyles = makeStyles({
@@ -55,34 +55,38 @@ const classes=useStyles();
 const [currentStory,setCurrentStory]= useState(ListStory[0]);
 const [volumeStory,setVolumeStory]=useState(true);
 const [runStory,setRunStory]=useState(true);
+const [countdownPerStoryImage,setcountdownPerStoryImage]=useState(5000);
 const vidRef = useRef(null);
 
 useEffect(()=>{
+  //get time when start change state
+  const before=new Date();
+  console.log('truoc',before.getSeconds());
 
   const nextStory=()=>{
+   
     setCurrentStory(ListStory[`${currentStory.id+1}`]);
     setRunStory(true);
   }
+  //pause resume interval when click pause play story
+  if(runStory===false && currentStory.type==="image"){
+    const after= new Date();
+   console.log('sau',after.getSeconds());
+    console.log((after.getSeconds()-before.getSeconds()));
+    //  setcountdownPerStoryImage((after.getTime()-before.getTime())/1000);
+  }
  
   if(runStory===true && currentStory.type==="image" && currentStory.id<ListStory.length-1){
-    const interval=setInterval(nextStory,5000);
+    const interval=setInterval(nextStory,countdownPerStoryImage);
     return ()=>{
       clearInterval(interval);
+      //reset 5s
+      setcountdownPerStoryImage(5000);
     }
   }
   
-  if(runStory===true && currentStory.type==="video" && currentStory.id<ListStory.length-1){
-    const durationVid=getVideoDurationInSeconds(currentStory.videourl);
-    console.log(durationVid)
-    const interval=setInterval(nextStory,);
-    return ()=>{
-      clearInterval(interval);
-    }
-  }
   
-   
-  
-},[runStory,currentStory]);
+},[runStory,currentStory,countdownPerStoryImage]);
 
 const handleClickNext=()=>{
   if( currentStory.id<ListStory.length-1){
@@ -100,9 +104,6 @@ const handleClickPrev=()=>{
   }else{
     setCurrentStory(ListStory[`${currentStory.id}`])
   }
- 
-
-
 }
 const toggleVolume=()=>{
   setVolumeStory(!volumeStory);
@@ -112,9 +113,13 @@ const toggleRunStory=()=>{
   setRunStory(!runStory);
  if(currentStory.type==='video' && runStory===true){
   vidRef.current.pause();
+
  }else if(currentStory.type==='video' && runStory===false){
   vidRef.current.play();
  }
+}
+const handleEndVideo=()=>{
+  setCurrentStory(ListStory[`${currentStory.id+1}`]);
 }
 
     return (
@@ -182,6 +187,7 @@ const toggleRunStory=()=>{
               image={currentStory.videourl}
               title="Background image"
               muted={!volumeStory}
+              onEnded={handleEndVideo}
               autoPlay
             /> }
             
