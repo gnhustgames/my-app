@@ -4,7 +4,7 @@ const ListStory=[{
     time:"4 năm",
     type:"image",
     image: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e8a96d27-6374-4ec8-81b1-033f476778f1/air-force-1-07-shoes-VWCc04.png",
-    desc:"0",
+    desc:"Lorem ipsum dfsdfsdfgsdfsdfsdf dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     view:'124'
 },
 {

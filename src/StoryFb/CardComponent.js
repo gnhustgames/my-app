@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardContent,Typography, CardMedia, IconButton, CardHeader, Avatar, CardActions, Box, LinearProgress, ThemeProvider } from "@mui/material";
+import { Card, CardContent,Typography, CardMedia, IconButton, CardHeader, Avatar, Box, LinearProgress } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 
 
@@ -10,7 +10,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 // import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -42,8 +42,8 @@ import CollapseContent from './CollapseContent';
         
       },
       card:{
-        width:'300px',
-        height:'auto',
+        width:'340px',
+        height:'600px',
         position:'relative'
       },
       buttonPrevNext:{
@@ -78,7 +78,7 @@ const [currentStory,setCurrentStory]= useState(ListStory[0]);
 const [volumeStory,setVolumeStory]=useState(true);
 const [runStory,setRunStory]=useState(true);
 const [countdownPerStoryImage,setcountdownPerStoryImage]=useState(5000);
-const [expanded, setExpanded] = useState(false);
+
 
 // const [progressId,setProgressId]=useState(0);
 const [progress,setProgress]=useState(0);
@@ -115,10 +115,7 @@ useEffect(()=>{
   
   
 },[progress,runStory,currentStory,countdownPerStoryImage]);
-//expand click
-const handleExpandClick = () => {
-  setExpanded(!expanded);
-};
+
 //next click
 const handleClickNext=()=>{
   if( currentStory.id<ListStory.length-1){
@@ -132,6 +129,7 @@ const handleClickNext=()=>{
   setCurrentStory(ListStory[`${currentStory.id}`])
  }
 }
+//prev story
 const handleClickPrev=()=>{
   if(currentStory.id>0){
     // console.log(progress);
@@ -143,10 +141,12 @@ const handleClickPrev=()=>{
     setCurrentStory(ListStory[`${currentStory.id}`])
   }
 }
+//mute unmute story
 const toggleVolume=()=>{
   setVolumeStory(!volumeStory);
   
 }
+//pause play story
 const toggleRunStory=()=>{
   setRunStory(!runStory);
  if(currentStory.type==='video' && runStory===true){
@@ -156,6 +156,7 @@ const toggleRunStory=()=>{
   vidRef.current.play();
  }
 }
+//
 const handleEndVideo=()=>{
   //video nam cuoi ngan su kien auto change
   if(currentStory.id<ListStory.length-1){
@@ -189,7 +190,7 @@ const handleEndVideo=()=>{
      
            
             <CardHeader
-              avatar={<Avatar sx={{marginRight:'-12px'}}>N</Avatar>}
+              avatar={<Avatar sx={{marginRight:'-12px'}} alt={currentStory.name} src={currentStory.type==='image'? currentStory.image:currentStory.name}></Avatar>}
               title={
                 <>
                 <div style={{display:'flex'}}>
@@ -230,7 +231,7 @@ const handleEndVideo=()=>{
                {currentStory.type==="image" ? 
                <CardMedia
               sx={{marginTop:"30px",objectFit:"contain"}}
-              style={{ paddingTop: "90%" }}
+              style={{ minHeight: '350px' }}
               image={currentStory.image}
               title="Background image"
             />: 
@@ -238,7 +239,7 @@ const handleEndVideo=()=>{
               ref={vidRef}
               id='myvideo'
               sx={{marginTop:"30px",objectFit:"contain"}}
-              style={{minHeight:'300px'}}
+              style={{minHeight:'400px'}}
               component='video'
               image={currentStory.videourl}
               title="Background image"
@@ -247,14 +248,17 @@ const handleEndVideo=()=>{
               autoPlay
             /> }
             
-            <CardContent sx={{ overflow:"hidden", display: "-webkit-box",
-            WebkitLineClamp: "3", WebkitBoxOrient: "vertical",
-            textOverflow:"ellipsis",color:"white",marginBottom:'50px'}}>
-              <Typography variant="h8">{currentStory.desc} </Typography>
+            <CardContent >
+              <Typography sx={{   maxWidth: '100%',
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 3,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',color:'white'}} variant="h8">{currentStory.desc} </Typography>
             </CardContent>
          <div className={classes.buttonView}>
           
-            <CollapseContent />
+            <CollapseContent infor={currentStory} toggleRunStory={toggleRunStory} handleClickNext={handleClickNext} handleClickPrev={handleClickPrev} />
          
            
         </div>
