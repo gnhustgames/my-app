@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardContent,Typography,CardActionArea, CardMedia, IconButton, CardHeader, Avatar, Button, CardActions, Box, LinearProgress, Grid } from "@mui/material";
+import { Card, CardContent,Typography, CardMedia, IconButton, CardHeader, Avatar, CardActions, Box, LinearProgress, ThemeProvider } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 
 
@@ -7,14 +7,21 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 // import { getVideoDurationInSeconds } from 'get-video-duration';
 import ListStory from '../utils/ListStory';
+// import { ExpandMore, theme } from './ExpandMore';
+import CollapseContent from './CollapseContent';
+
+
+
   
   const useStyles = makeStyles({
     root: {
@@ -36,7 +43,7 @@ import ListStory from '../utils/ListStory';
       },
       card:{
         width:'300px',
-        height:"500px",
+        height:'auto',
         position:'relative'
       },
       buttonPrevNext:{
@@ -46,7 +53,9 @@ import ListStory from '../utils/ListStory';
        display:'flex',
        color:'white',
        alignItems:'center',
-       bottom:'0px',position:'absolute'
+       bottom:'0px',
+       position:'absolute',
+       width:'100%',
       },
       //thanh linear progress rieng
       // linearProgress:{
@@ -69,6 +78,8 @@ const [currentStory,setCurrentStory]= useState(ListStory[0]);
 const [volumeStory,setVolumeStory]=useState(true);
 const [runStory,setRunStory]=useState(true);
 const [countdownPerStoryImage,setcountdownPerStoryImage]=useState(5000);
+const [expanded, setExpanded] = useState(false);
+
 // const [progressId,setProgressId]=useState(0);
 const [progress,setProgress]=useState(0);
 const vidRef = useRef(null);
@@ -104,7 +115,11 @@ useEffect(()=>{
   
   
 },[progress,runStory,currentStory,countdownPerStoryImage]);
-
+//expand click
+const handleExpandClick = () => {
+  setExpanded(!expanded);
+};
+//next click
 const handleClickNext=()=>{
   if( currentStory.id<ListStory.length-1){
     // console.log(progress);
@@ -234,18 +249,15 @@ const handleEndVideo=()=>{
             
             <CardContent sx={{ overflow:"hidden", display: "-webkit-box",
             WebkitLineClamp: "3", WebkitBoxOrient: "vertical",
-            textOverflow:"ellipsis",bottom:"10px",color:"white"}}>
+            textOverflow:"ellipsis",color:"white",marginBottom:'50px'}}>
               <Typography variant="h8">{currentStory.desc} </Typography>
             </CardContent>
          <div className={classes.buttonView}>
-          <IconButton sx={{color:"white"}}>
-                <KeyboardArrowUpIcon />
-            </IconButton>
-            <Typography sx={{}}>
-                       {currentStory.view} người xem
-            </Typography>
+          
+            <CollapseContent />
+         
+           
         </div>
-     
         </Card>
         <IconButton  onClick={handleClickNext}>
         <ArrowForwardIosIcon />
