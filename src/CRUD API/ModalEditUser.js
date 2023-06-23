@@ -11,7 +11,7 @@ class ModalEditUser extends Component {
       id: "",
       email: "",
       name:"",
-    gender:"",
+      gender:"",
       status:"",
     };
   }
@@ -115,16 +115,15 @@ class ModalEditUser extends Component {
               </select>
             </div>
             <div className="input-container form-group">
-              <label htmlFor="">Gender</label>
+              <label htmlFor="">Status</label>
 
               <select
                 name=""
                 className="select-gender"
                 id="status"
                 onChange={(event) => this.handleOnchangeInput(event, "status")}
-                value={this.state.gender}
+                value={this.state.status}
               >
-             
                 <option value="active">Active</option>
                 <option value="inactive">InActive</option>
               </select>

@@ -37,7 +37,7 @@ class UserManage extends React.Component {
       // console.log(data)
       try {
       let response = await createUser(data)
-   
+      
       if( response &&(response.status===201 || response.status===200)){
         this.props.getListEx();
         this.setState({
@@ -54,7 +54,7 @@ class UserManage extends React.Component {
         )
       }
       } catch (error) {
-        console.log(error)
+        alert(`${error.response.data[0].field} ${error.response.data[0].message}`);
       }
     };
     //delete user

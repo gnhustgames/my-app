@@ -18,7 +18,6 @@ class ModalUser extends Component {
   handleOnchangeInput = (event, id) => {
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
-    console.log(copyState);
     this.setState(
       {
         ...copyState,
@@ -26,11 +25,11 @@ class ModalUser extends Component {
       // () => console.log(this.state)
     );
   };
-// validateEmail = (email) => {
-//     return email.match(
-//       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-//     );
-//   };
+validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+      
   checkValidateInput = () => {
    
     let isValid = true;
@@ -46,7 +45,10 @@ class ModalUser extends Component {
         alert(`Missing parameter :` + arrInput[i]);
         break;
       }
-     
+    }
+    if(this.validateEmail(this.state.email)===false){
+      isValid = false;
+      alert(`Data type must be email`);
     }
     
     return isValid;

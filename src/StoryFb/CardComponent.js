@@ -257,13 +257,10 @@ const handleEndVideo=()=>{
                 textOverflow: 'ellipsis',color:'white'}} variant="h8">{currentStory.desc} </Typography>
             </CardContent>
          <div className={classes.buttonView}>
-          
             <CollapseContent infor={currentStory} toggleRunStory={toggleRunStory} handleClickNext={handleClickNext} handleClickPrev={handleClickPrev} />
-         
-           
         </div>
         </Card>
-        <IconButton  onClick={handleClickNext}>
+        <IconButton onClick={handleClickNext}>
         <ArrowForwardIosIcon />
         </IconButton>
        
