@@ -8,7 +8,7 @@ class ModalUser extends Component {
     super(props);
     this.state = {
       email: "",
-      name:'',
+      name:"",
       gender:"male",
       status:"inactive",
     };
@@ -56,15 +56,14 @@ validateEmail(email) {
  
   handleAddNewUser = () => {
     let isValid = this.checkValidateInput();
-    
+    console.log(isValid)
     if (isValid === true ) {
       //call api create model
       this.props.createNewUser(this.state);
-  
-    //   console.log(this.state);
+    //console.log(this.state);
       this.setState({
         email: "",
-        password: "",
+        name: "",
         firstName: "",
         lastName: "",
       });

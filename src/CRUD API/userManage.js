@@ -17,21 +17,23 @@ class UserManage extends React.Component {
       arrUsers:[],
       isOpenModalUser: false,
       isOpenModaEditUser: false,
-      userEdit:{}
+      userEdit:{},
+      pages:[1,2,3,4,5,6],
+      activePage:1,
     }
   }
   componentDidMount() {
     this.props.getListPost();
     this.props.getListEx();
-    
     }
-    componentDidUpdate(prevProps, prevState, snapshot){
+  componentDidUpdate(prevProps, prevState, snapshot){
       if(this.props.dataShort !==prevProps.dataShort){
         this.setState({
           arrUsers:this.props.dataShort.data,
         })
       }
     }
+
     //create user from modaluser
     createNewUser = async (data) => {
       // console.log(data)
@@ -111,7 +113,13 @@ class UserManage extends React.Component {
       console.log(error)
      }
     };
- 
+  //change pagination
+  handleChangePage=(page)=>{
+    this.props.getListEx(page);
+    this.setState({
+      activePage:page,
+    })
+   }
     //toggle modal
     toggleUserModal = () => {
       this.setState({
@@ -125,7 +133,7 @@ class UserManage extends React.Component {
     };
 render() {
 // console.log(this.state)
-let {arrUsers}=this.state;
+let {arrUsers,pages,activePage}=this.state;
 
 
 
@@ -204,6 +212,14 @@ return (
               </tbody>
             </table>
           </div>
+          <div className='pagination'>
+            {pages && pages.length>0 && pages.map((item,index)=>{
+              return(
+                <button className={item===activePage?'activePagination':''} value={item} key={item} onClick={()=>this.handleChangePage(item)}>Page {item} </button>
+              )
+            })}
+            
+          </div>
           <ToastContainer
 position="top-right"
 autoClose={5000}
@@ -236,7 +252,7 @@ dataShort:state.posts.listUserShort,
 const mapDispatchToProps = (dispatch) => {
 return {
 getListPost: () => dispatch(getListPost()),
-getListEx:()=>dispatch(getListEx()),
+getListEx:(page)=>dispatch(getListEx(page)),
 }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserManage);

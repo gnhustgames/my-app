@@ -17,7 +17,7 @@ yield put(getListPostSuccess(data));
 }
 function* getListEx(action) {
     try {
-    const data = yield call(getUser);
+    const data = yield call(getUser,action.payload.page);
     yield put(getListEXSuccess(data));
     } catch (error) {
     //handle error

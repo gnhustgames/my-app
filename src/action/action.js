@@ -13,10 +13,10 @@ type: GET_LIST_POST_SUCCESS,
 payload,
 }
 }
-export const getListEx=(payload)=>{
+export const getListEx=(page)=>{
     return {
         type: GET_LIST_EX,
-        payload,
+        payload:{page},
         }
 }
 export const getListEXSuccess = (payload) => {
