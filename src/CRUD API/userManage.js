@@ -18,7 +18,7 @@ class UserManage extends React.Component {
       isOpenModalUser: false,
       isOpenModaEditUser: false,
       userEdit:{},
-      pages:[1,2,3,4,5,6],
+      pages:[1,2,3,4,5,6,7,8],
       activePage:1,
     }
   }
@@ -36,7 +36,6 @@ class UserManage extends React.Component {
 
     //create user from modaluser
     createNewUser = async (data) => {
-      // console.log(data)
       try {
       let response = await createUser(data)
       
@@ -44,6 +43,7 @@ class UserManage extends React.Component {
         this.props.getListEx();
         this.setState({
           isOpenModalUser:false,
+          activePage:1,
         })
         toast("Add User Success")
 
@@ -79,6 +79,7 @@ class UserManage extends React.Component {
     handleAddNewUser=()=>{
       this.setState({
         isOpenModalUser:true,
+       
       })
     }
     //edit user button
@@ -87,14 +88,12 @@ class UserManage extends React.Component {
         isOpenModaEditUser:true,
         userEdit:user
       })
-      // console.log(user.id)
     }
     //update infor
     doEditUser = async (userUpdate) => {
     
      try {
     
-      console.log(userUpdate)
       let response= await updateUser(userUpdate)
       if(response && (response.status===201 || response.status===200)){
         this.props.getListEx();
@@ -132,7 +131,6 @@ class UserManage extends React.Component {
       });
     };
 render() {
-// console.log(this.state)
 let {arrUsers,pages,activePage}=this.state;
 
 
@@ -152,13 +150,10 @@ return (
             toggleUserEditModal={this.toggleUserEditModal}
             currentUser={this.state.userEdit}
             editUser={this.doEditUser}
-            // toggleFromParent={this.toggleUserModal}
-            // createNewUser={this.createNewUser}
           />
         )}
        <div className="title text-center">
-
-          Manage users
+          <span className='content-text'>Manage users</span>
           <div className="mx-1 ">
             <button
               className="btn btn-primary px-3"
@@ -166,7 +161,6 @@ return (
             >
               <i class="fa fa-plus px-3"></i>Add new user
             </button>
-        
           </div>
           </div>
           <div className="users-table mt-4 mx-4 ">
@@ -245,8 +239,6 @@ const mapStateToProps = (state) => {
 return {
 dataLong: state.posts.listUserLong,
 dataShort:state.posts.listUserShort,
-
-// data2:state.posts.data2,
 }
 }
 const mapDispatchToProps = (dispatch) => {

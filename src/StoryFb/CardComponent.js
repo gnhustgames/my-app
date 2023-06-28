@@ -57,16 +57,7 @@ import CollapseContent from './CollapseContent';
        position:'absolute',
        width:'100%',
       },
-      //thanh linear progress rieng
-      // linearProgress:{
-      //   display:'flex',
-      //   flexDirection:'row',
-      // }
-      // activeStory:{
-      //   "& .MuiLinearProgress-barColorPrimary": {
-      //     backgroundColor: "green",
-      // },
-      // }
+   
       
       
 
@@ -74,71 +65,60 @@ import CollapseContent from './CollapseContent';
   })
 const CardComponent=()=> {
 const classes=useStyles();
-const [currentStory,setCurrentStory]= useState(ListStory[0]);
+const [currentIndexStory,setCurrenIndexStory]=useState(0);
+const [currentStory,setCurrentStory]= useState(ListStory[currentIndexStory]);
 const [volumeStory,setVolumeStory]=useState(true);
 const [runStory,setRunStory]=useState(true);
-const [countdownPerStoryImage,setcountdownPerStoryImage]=useState(5000);
 
 
-// const [progressId,setProgressId]=useState(0);
+
+
 const [progress,setProgress]=useState(0);
 const vidRef = useRef(null);
 
 useEffect(()=>{
-  //get time when start change state
-  // const before=new Date();
-  // // console.log('truoc',before.getSeconds());
-
   const nextStory=()=>{
-    setCurrentStory(ListStory[`${currentStory.id+1}`]);
-    // setProgressId(progressId+1);
-    // console.log(progressId);
+    setCurrenIndexStory(currentIndexStory+1);
+    setCurrentStory(ListStory[currentIndexStory+1]);
     setProgress(progress+100/(100/(ListStory.length-1)));
     setRunStory(true);
   }
-  //pause resume interval when click pause play story
-  // if(runStory===false && currentStory.type==="image"){
-  //   const after= new Date();
-  // //  console.log('sau',after.getSeconds());
-  //   console.log((after.getSeconds()-before.getSeconds()));
-  //   //  setcountdownPerStoryImage((after.getTime()-before.getTime())/1000);
-  // }
  
-  if(runStory===true && currentStory.type==="image" && currentStory.id<ListStory.length-1){
-    const interval=setInterval(nextStory,countdownPerStoryImage);
+ 
+  if(runStory===true && currentStory.type==="image" && currentIndexStory<ListStory.length-1){
+    const interval=setInterval(nextStory,5000);
     return ()=>{
       clearInterval(interval);
-      //reset 5s
-      // setcountdownPerStoryImage(5000);
+     
     }
   }
   
   
-},[progress,runStory,currentStory,countdownPerStoryImage]);
+},[currentIndexStory,runStory,progress,currentStory]);
 
 //next click
 const handleClickNext=()=>{
-  if( currentStory.id<ListStory.length-1){
-    // console.log(progress);
-    setCurrentStory(ListStory[`${currentStory.id+1}`])
+  if(currentIndexStory<ListStory.length-1){
+    setCurrenIndexStory(currentIndexStory+1);
+    setCurrentStory(ListStory[currentIndexStory+1]);
     setRunStory(true);
     setProgress(progress+100/(ListStory.length-1))
-    // setProgressId(progressId+1);
+ 
   }
  else{
-  setCurrentStory(ListStory[`${currentStory.id}`])
+  setCurrentStory(ListStory[currentIndexStory])
  }
 }
 //prev story
 const handleClickPrev=()=>{
-  if(currentStory.id>0){
-    // console.log(progress);
-    setCurrentStory(ListStory[`${currentStory.id-1}`])
+  if(currentIndexStory>0){
+    setCurrenIndexStory(currentIndexStory-1);
+    setCurrentStory(ListStory[currentIndexStory-1]);
     setRunStory(true);
     setProgress(progress-100/(ListStory.length-1))
-    // setProgressId(progressId-1);
+   
   }else{
-    setCurrentStory(ListStory[`${currentStory.id}`])
+    setCurrentStory(ListStory[currentIndexStory])
   }
 }
 //mute unmute story
@@ -158,9 +138,11 @@ const toggleRunStory=()=>{
 }
 //
 const handleEndVideo=()=>{
+  setCurrenIndexStory(currentIndexStory+1);
   //video nam cuoi ngan su kien auto change
-  if(currentStory.id<ListStory.length-1){
-    setCurrentStory(ListStory[`${currentStory.id+1}`]);
+  if(currentIndexStory<ListStory.length-1){
+    setCurrentStory(ListStory[currentIndexStory+1]);
+    setProgress(progress+100/(ListStory.length-1))
   }
   
 }
@@ -174,21 +156,6 @@ const handleEndVideo=()=>{
        
         <Card className={classes.card} sx={{background:'#00695c'}} >
         <LinearProgress  variant="determinate" value={progress} />
-        {/* <div className={classes.linearProgress} >
-            {ListStory.map((item,index)=>{
-              return(
-              <>
-              {(item.id)===progressId ?
-              <LinearProgress  variant="determinate" value={100} style={{ width: "100%", margin: "2px", }} key={item.id} />
-             :
-              <LinearProgress variant="determinate" value={100} style={{ width: "100%", margin: "2px", }} key={item.id} />
-              }
-              </>
-              )
-            })}
-        </div> */}
-     
-           
             <CardHeader
               avatar={<Avatar sx={{marginRight:'-12px'}} alt={currentStory.name} src={currentStory.type==='image'? currentStory.image:currentStory.name}></Avatar>}
               title={
@@ -257,7 +224,7 @@ const handleEndVideo=()=>{
                 textOverflow: 'ellipsis',color:'white'}} variant="h8">{currentStory.desc} </Typography>
             </CardContent>
          <div className={classes.buttonView}>
-            <CollapseContent infor={currentStory} toggleRunStory={toggleRunStory} handleClickNext={handleClickNext} handleClickPrev={handleClickPrev} />
+            <CollapseContent infor={currentStory} currentIndexStory={currentIndexStory} toggleRunStory={toggleRunStory} handleClickNext={handleClickNext} handleClickPrev={handleClickPrev} />
         </div>
         </Card>
         <IconButton onClick={handleClickNext}>

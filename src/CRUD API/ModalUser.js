@@ -22,7 +22,7 @@ class ModalUser extends Component {
       {
         ...copyState,
       }
-      // () => console.log(this.state)
+
     );
   };
 validateEmail(email) {
@@ -56,11 +56,10 @@ validateEmail(email) {
  
   handleAddNewUser = () => {
     let isValid = this.checkValidateInput();
-    console.log(isValid)
+
     if (isValid === true ) {
       //call api create model
       this.props.createNewUser(this.state);
-    //console.log(this.state);
       this.setState({
         email: "",
         name: "",
@@ -75,7 +74,6 @@ validateEmail(email) {
   };
 
   render() {
-    // console.log(this.props);
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -130,8 +128,6 @@ validateEmail(email) {
                 <option value="active">Active</option>
               </select>
             </div>
-
-            
           </div>
         </ModalBody>
         <ModalFooter>
