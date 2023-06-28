@@ -96,7 +96,7 @@ useEffect(()=>{
   
 },[currentIndexStory,runStory,progress,currentStory]);
 
-//next click
+//next story
 const handleClickNext=()=>{
   if(currentIndexStory<ListStory.length-1){
     setCurrenIndexStory(currentIndexStory+1);
@@ -136,7 +136,7 @@ const toggleRunStory=()=>{
   vidRef.current.play();
  }
 }
-//
+//auto end video
 const handleEndVideo=()=>{
   setCurrenIndexStory(currentIndexStory+1);
   //video nam cuoi ngan su kien auto change
@@ -144,9 +144,16 @@ const handleEndVideo=()=>{
     setCurrentStory(ListStory[currentIndexStory+1]);
     setProgress(progress+100/(ListStory.length-1))
   }
-  
 }
-
+//check type story
+const checkImage = (fileName)=>{
+  if (String(fileName).match(/\.(jpg|jpeg|png|gif)$/i)){
+    return true;
+  }else{
+    return false;
+  }
+}
+console.log(checkImage(currentStory.image))
     return (
       <>
       <Box className={classes.root}>
@@ -195,7 +202,7 @@ const handleEndVideo=()=>{
               }
             
             />
-               {currentStory.type==="image" ? 
+               {checkImage(currentStory.image)===true ? 
                <CardMedia
               sx={{marginTop:"30px",objectFit:"contain"}}
               style={{ minHeight: '350px' }}
@@ -208,7 +215,7 @@ const handleEndVideo=()=>{
               sx={{marginTop:"30px",objectFit:"contain"}}
               style={{minHeight:'400px'}}
               component='video'
-              image={currentStory.videourl}
+              image={currentStory.image}
               title="Background image"
               muted={!volumeStory}
               onEnded={handleEndVideo}

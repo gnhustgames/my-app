@@ -75,7 +75,7 @@ const ListStory=[{
   name:"gnhust",
   time:"1 ngày",
   type:"video",
-  videourl:`https://dl6.webmfiles.org/big-buck-bunny_trailer.webm`,
+  image:`https://dl6.webmfiles.org/big-buck-bunny_trailer.webm`,
   desc:"video1",
   view:"232"
 
@@ -85,7 +85,7 @@ const ListStory=[{
     name: "nguyengiang2011",
     time:"11 tháng",
     type:"image",
-    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    image: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2021/5/26/913299/Ngan-Ha24.jpg",
     desc:'Featuring the original ripple design inspired by Japanese bullet trains, the Nike Air Max 97 lets you push your style full-speed ahead.Taking the revolutionary full-length Nike Air unit that shook up the running world and adding fresh colours and crisp details, it lets you ride in first-class comfort.',
     view:'243'
 },{
@@ -93,7 +93,7 @@ const ListStory=[{
     name:"gnhust2",
     time:"3 ngày",
     type:"video",
-    videourl:`https://dl6.webmfiles.org/elephants-dream.webm`,
+    image:`https://dl6.webmfiles.org/elephants-dream.webm`,
     desc:"video2",
     view:"2002"
   
