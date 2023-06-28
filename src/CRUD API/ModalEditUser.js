@@ -35,7 +35,7 @@ class ModalEditUser extends Component {
     this.setState({
       ...copyState,
     });
-    // console.log(this.state.gender);
+   
   };
   //validate email input 
 
@@ -67,8 +67,7 @@ class ModalEditUser extends Component {
   };
 
   render() {
-    // console.log(this.props);
-    // console.log(this.props);
+  
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -109,14 +108,12 @@ class ModalEditUser extends Component {
                 onChange={(event) => this.handleOnchangeInput(event, "gender")}
                 value={this.state.gender}
               >
-             
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
             </div>
             <div className="input-container form-group">
               <label htmlFor="">Status</label>
-
               <select
                 name=""
                 className="select-gender"
